@@ -166,7 +166,7 @@ class AliyunBaseStorage(BucketOperationMixin, Storage):
     def url(self, name):
         name = self._normalize_name(self._clean_name(name))
         name = filepath_to_uri(name)
-        return urljoin(self.end_point, name)
+        return self.bucket._make_url(self.bucket_name, name)
 
     def read(self, name):
         pass
@@ -179,7 +179,7 @@ class AliyunBaseStorage(BucketOperationMixin, Storage):
 
 
 class AliyunMediaStorage(AliyunBaseStorage):
-    location = 'media'
+    location = ''
 
 
 class AliyunStaticStorage(AliyunBaseStorage):
