@@ -12,6 +12,7 @@ from oss2 import Auth, Service, BucketIterator, Bucket, ObjectIterator
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured, SuspiciousOperation
 from django.core.files.storage import Storage
+from django.conf import settings
 from oss2.api import _normalize_endpoint
 
 
@@ -179,11 +180,11 @@ class AliyunBaseStorage(BucketOperationMixin, Storage):
 
 
 class AliyunMediaStorage(AliyunBaseStorage):
-    location = ''
+    location = settings.MEDIA_URL
 
 
 class AliyunStaticStorage(AliyunBaseStorage):
-    location = 'static'
+    location = settings.STATIC_URL
 
 
 class AliyunFile(File):
