@@ -124,11 +124,12 @@ class AliyunBaseStorage(BucketOperationMixin, Storage):
         return AliyunFile(name, self, mode)
 
     def _save(self, name, content):
-        name = self._get_target_name(name)
+        # 为保证django行为的一致性，保存文件时，应该返回相对于`media path`的相对路径。
+        target_name = self._get_target_name(name)
 
         content.open()
         content_str = b''.join(chunk for chunk in content.chunks())
-        self.bucket.put_object(name, content_str)
+        self.bucket.put_object(target_name, content_str)
         content.close()
 
         return self._clean_name(name)
@@ -166,7 +167,9 @@ class AliyunBaseStorage(BucketOperationMixin, Storage):
 
     def url(self, name):
         name = self._normalize_name(self._clean_name(name))
-        name = filepath_to_uri(name)
+        # name = filepath_to_uri(name) # 这段会导致二次encode
+        name = name.encode('utf8') 
+        # 做这个转化，是因为下面的_make_url会用urllib.quote转码，转码不支持unicode，会报错，在python2环境下。
         return self.bucket._make_url(self.bucket_name, name)
 
     def read(self, name):
