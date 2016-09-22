@@ -124,6 +124,7 @@ class AliyunBaseStorage(BucketOperationMixin, Storage):
         return AliyunFile(name, self, mode)
 
     def _save(self, name, content):
+        # 为保证django行为的一致性，保存文件时，应该返回相对于`media path`的相对路径。
         target_name = self._get_target_name(name)
 
         content.open()
