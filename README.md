@@ -14,7 +14,7 @@ Django Aliyun OSS2 Storage 需要以下几个配置才能正常工作。这些�
 ```python
 ACCESS_KEY_ID = "40ZhE1HyuWdllpMh"
 ACCESS_KEY_SECRET = "KbxtlKSvKyuyuymTiQvrxhsYFMguXy"
-END_POINT = "XXXX.oss-us-west-1.aliyuncs.com"
+END_POINT = "oss-us-west-1.aliyuncs.com"
 BUCKET_NAME = "XXXX"
 BUCKET_ACL_TYPE = "private" # private, public-read, public-read-write
 ```
