@@ -25,9 +25,9 @@ BUCKET_ACL_TYPE = "private" # private, public-read, public-read-write
 
 ```python
 # mediafile将自动上传
-DEFAULT_FILE_STORAGE = 'aliyun-oss2-storage.backends.AliyunMediaStorage'
+DEFAULT_FILE_STORAGE = 'aliyun_oss2_storage.backends.AliyunMediaStorage'
 # staticfile将自动上传
-STATICFILES_STORAGE = 'aliyun-oss2-storage.backends.AliyunStaticStorage'
+STATICFILES_STORAGE = 'aliyun_oss2_storage.backends.AliyunStaticStorage'
 ```
 
 ## License
