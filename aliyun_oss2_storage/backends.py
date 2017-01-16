@@ -4,7 +4,10 @@ import datetime
 import six
 import posixpath
 
-from urlparse import urljoin
+try:
+    from urllib.parse import urljoin
+except ImportError:
+    from urlparse import urljion
 
 from django.core.files import File
 from django.utils.encoding import force_text, filepath_to_uri, force_bytes
