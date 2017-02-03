@@ -1,3 +1,5 @@
+# coding=utf-8
+
 import os
 
 import datetime
@@ -7,7 +9,7 @@ import posixpath
 try:
     from urllib.parse import urljoin
 except ImportError:
-    from urlparse import urljion
+    from urlparse import urljoin
 
 from django.core.files import File
 from django.utils.encoding import force_text, filepath_to_uri, force_bytes
