@@ -14,6 +14,7 @@ except ImportError:
 from django.core.files import File
 from django.utils.encoding import force_text, filepath_to_uri, force_bytes
 from oss2 import Auth, Service, BucketIterator, Bucket, ObjectIterator
+from oss2.exceptions import AccessDenied
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured, SuspiciousOperation
 from django.core.files.storage import Storage
@@ -62,12 +63,16 @@ class AliyunBaseStorage(BucketOperationMixin, Storage):
         self.auth = Auth(self.access_key_id, self.access_key_secret)
         self.service = Service(self.auth, self.end_point)
 
-        if self.bucket_name not in self._list_bucket(self.service):
-            # create bucket if not exists
-            self.bucket = self._create_bucket(self.auth)
-        else:
-            # change bucket acl if not consists
-            self.bucket = self._check_bucket_acl(self._get_bucket(self.auth))
+        try:
+            if self.bucket_name not in self._list_bucket(self.service):
+                # create bucket if not exists
+                self.bucket = self._create_bucket(self.auth)
+            else:
+                # change bucket acl if not consists
+                self.bucket = self._check_bucket_acl(self._get_bucket(self.auth))
+        except AccessDenied:
+            # 当启用了RAM访问策略，是不允许list和create bucket的
+            self.bucket = self._get_bucket(self.auth)
 
     def _get_config(self, name):
         """
