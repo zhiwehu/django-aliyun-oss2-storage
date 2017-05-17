@@ -203,12 +203,12 @@ class AliyunStaticStorage(AliyunBaseStorage):
 class AliyunFile(File):
     def __init__(self, name, storage, mode):
         self._storage = storage
-        self._name = name[len(self._storage.location)+1:]
+        self._name = name[len(self._storage.location):]
         self._mode = mode
         self.file = six.BytesIO()
         self._is_dirty = False
         self._is_read = False
-        super(AliyunFile, self).__init__(self.file, self.name)
+        super(AliyunFile, self).__init__(self.file, self._name)
 
     def read(self, num_bytes=None):
         if not self._is_read:
