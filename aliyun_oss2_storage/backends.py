@@ -32,7 +32,10 @@ class AliyunOperationError(Exception):
 
 class BucketOperationMixin(object):
     def _get_bucket(self, auth):
-        return Bucket(auth, self.end_point, self.bucket_name)
+        if self.cname:
+            return Bucket(auth, self.cname, self.bucket_name, is_cname=True)
+        else:
+            return Bucket(auth, self.end_point, self.bucket_name)
 
     def _list_bucket(self, service):
         return [bucket.name for bucket in BucketIterator(service)]
@@ -59,6 +62,7 @@ class AliyunBaseStorage(BucketOperationMixin, Storage):
         self.access_key_secret = self._get_config('ACCESS_KEY_SECRET')
         self.end_point = _normalize_endpoint(self._get_config('END_POINT').strip())
         self.bucket_name = self._get_config('BUCKET_NAME')
+        self.cname = self._get_config('ALIYUN_OSS_CNAME')
 
         self.auth = Auth(self.access_key_id, self.access_key_secret)
         self.service = Service(self.auth, self.end_point)

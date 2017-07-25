@@ -127,6 +127,7 @@ ACCESS_KEY_ID = "XXXXXXXXXXX"
 ACCESS_KEY_SECRET = "XXXXXXXXXXXXXXXXXXXX"
 END_POINT = "oss-us-west-1.aliyuncs.com"
 BUCKET_NAME = "XXXXX"
+ALIYUN_OSS_CNAME = "" # custom domain
 BUCKET_ACL_TYPE = "public-read-write"  # private, public-read, public-read-write
 
 DEFAULT_FILE_STORAGE = 'aliyun_oss2_storage.backends.AliyunMediaStorage'
