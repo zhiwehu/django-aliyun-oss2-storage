@@ -217,7 +217,7 @@ class AliyunFile(File):
     def read(self, num_bytes=None):
         if not self._is_read:
             content = self._storage.bucket.get_object(self._name)
-            self.file = six.BytesIO(content)
+            self.file = six.BytesIO(content.read())
             self._is_read = True
 
         if num_bytes is None:
