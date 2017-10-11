@@ -91,3 +91,7 @@ ENV/
 .ropeproject
 
 .idea/
+/demo_sites/.idea
+/django_aliyun_oss2_storage.egg-info
+/dist
+# Created by .ignore support plugin (hsz.mobi)
