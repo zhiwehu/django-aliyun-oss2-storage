@@ -184,7 +184,9 @@ class AliyunBaseStorage(BucketOperationMixin, Storage):
         # name = filepath_to_uri(name) # 这段会导致二次encode
         name = name.encode('utf8') 
         # 做这个转化，是因为下面的_make_url会用urllib.quote转码，转码不支持unicode，会报错，在python2环境下。
-        return self.bucket._make_url(self.bucket_name, name)
+        #return self.bucket._make_url(self.bucket_name, name)
+        ret = self.bucket._make_url(self.bucket_name, name)
+        return ret.replace("%2F", "/")
 
     def read(self, name):
         pass
